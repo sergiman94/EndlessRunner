@@ -12,17 +12,23 @@ public class PowerupManager : MonoBehaviour {
 	private float powerupLengthCounter;
 
 	private ScoreManager theScoreManager;
-	private PlatformerGenerator thePlatformGenerator;
+	private ObjectGenerator thePlatformGenerator;
+	private GameManager theGameManager;
 
 	private float normalPointsPerSecond;
 	private float spikeRate;
+
+	private PlatformDestroyer[] spikeList;
+
+
 
 
 	// Use this for initialization
 	void Start () {
 
 		theScoreManager = FindObjectOfType<ScoreManager> ();
-		thePlatformGenerator = FindObjectOfType< PlatformerGenerator> ();
+		thePlatformGenerator = FindObjectOfType< ObjectGenerator> ();
+		theGameManager = FindObjectOfType< GameManager > ();
 		
 	}
 	
@@ -32,6 +38,12 @@ public class PowerupManager : MonoBehaviour {
 		if (powerupActive) {
 
 			powerupLengthCounter -= Time.deltaTime;
+
+			if (theGameManager.powerupReset){
+
+				powerupLengthCounter = 0;
+				theGameManager.powerupReset = false;
+			}
 
 			if (doublePoints) {
 				
@@ -69,7 +81,19 @@ public class PowerupManager : MonoBehaviour {
 		normalPointsPerSecond = theScoreManager.pointsPerSecond;
 		spikeRate = thePlatformGenerator.randomSpikeThreshold;
 
-		powerupActive = true;
+		if (safeMode) {
+		
+			spikeList = FindObjectsOfType<PlatformDestroyer>();
+			for (int i = 0; i < spikeList.Length; i++)
+			{
 
+				if (spikeList[i].gameObject.name.Contains("spikes")) {
+
+					spikeList[i].gameObject.SetActive(false);
+				}
+			}
+		}
+
+		powerupActive = true;
 	}
 }

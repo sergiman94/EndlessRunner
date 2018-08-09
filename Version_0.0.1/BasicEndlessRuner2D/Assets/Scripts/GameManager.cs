@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     private ScoreManager theScoreManager;
 
     public DeathMenu theDeathScreen;
-    
+
+	public bool powerupReset;
 
     // Use this for initialization
     void Start()
@@ -54,8 +55,8 @@ public class GameManager : MonoBehaviour
     {
 
         theDeathScreen.gameObject.SetActive(false);
-        platformList = FindObjectsOfType<PlatformDestroyer>();
 
+        platformList = FindObjectsOfType<PlatformDestroyer>();
         for (int i = 0; i < platformList.Length; i++)
         {
 
@@ -68,6 +69,10 @@ public class GameManager : MonoBehaviour
 
         theScoreManager.scoreCount = 0;
         theScoreManager.scoreIncreasing = true;
+
+
+		powerupReset = true;
+
     }
 
     /* public IEnumerator RestartGameCo(){

@@ -68,7 +68,7 @@
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/sergioManrique/Desktop/ALL/Unity/Projects/BasicEndlessRuner2D/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>/Users/sergioManrique/Desktop/ALL/Unity/Projects/EndlessRunner/Version_0.0.1/BasicEndlessRuner2D/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>

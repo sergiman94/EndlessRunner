@@ -38,6 +38,10 @@ public class PlatformerGenerator : MonoBehaviour
 	public float randomSpikeThreshold;
 	public ObjectPooler spikePool;
 
+	public float powerupHeight;
+	public ObjectPooler powerupPool;
+	public float powerupThreshold;
+
 
     // Use this for initialization
     void Start()
@@ -70,7 +74,6 @@ public class PlatformerGenerator : MonoBehaviour
     void Update()
     {
 
-
         // si este objeto (en la mitad de la ultima plataforma) es menor que el pto de generacion(afuera de la camara)
         if (transform.position.x < generationPoint.position.x)
         {
@@ -95,6 +98,16 @@ public class PlatformerGenerator : MonoBehaviour
                 // el cambio de altura sera el la minima altura 
                 heightChange = minHeight;
             }
+
+			if (Random.Range(0f, 100f) < powerupThreshold){
+
+				GameObject newPowerUp = powerupPool.GetPooledObject ();
+
+				newPowerUp.transform.position = transform.position + new Vector3 (distanceBetween / 2f, Random.Range(powerupHeight / 2f, powerupHeight), 0f);
+
+				newPowerUp.SetActive (true);
+
+			}
 
             // la posicion de este objeto sera el mismo MAS el ancho de esta plataforma y la distancia de esta misma hasta el pto de generacion 
             transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween, heightChange, 0);

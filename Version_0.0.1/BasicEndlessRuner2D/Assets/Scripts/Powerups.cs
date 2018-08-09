@@ -11,6 +11,8 @@ public class Powerups : MonoBehaviour {
 
 	private PowerupManager thePowerupManager;
 
+	public Sprite[] powerupSprites;
+
 	// Use this for initialization
 	void Start () {
 
@@ -21,6 +23,24 @@ public class Powerups : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void Awake () {
+	
+		int powerupSelector = Random.Range (0, 2);
+
+		switch (powerupSelector) {
+
+		case 0:
+			doublePoints = true;
+			break;
+		
+		case 1:
+			safeMode = true;
+			break;
+		}
+
+		GetComponent<SpriteRenderer>().sprite = powerupSprites[powerupSelector];
 	}
 
 
