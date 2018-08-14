@@ -12,7 +12,7 @@ public class PowerupManager : MonoBehaviour {
 	private float powerupLengthCounter;
 
 	private ScoreManager theScoreManager;
-	private ObjectGenerator thePlatformGenerator;
+    private PlatformerGenerator thePlatformGenerator;
 	private GameManager theGameManager;
 
 	private float normalPointsPerSecond;
@@ -27,7 +27,7 @@ public class PowerupManager : MonoBehaviour {
 	void Start () {
 
 		theScoreManager = FindObjectOfType<ScoreManager> ();
-		thePlatformGenerator = FindObjectOfType< ObjectGenerator> ();
+        thePlatformGenerator = FindObjectOfType< PlatformerGenerator> ();
 		theGameManager = FindObjectOfType< GameManager > ();
 		
 	}
