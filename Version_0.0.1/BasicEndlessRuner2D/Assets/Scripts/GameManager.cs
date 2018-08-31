@@ -13,11 +13,15 @@ public class GameManager : MonoBehaviour
 
     private PlatformDestroyer[] platformList;
 
-    private ScoreManager theScoreManager;
+    private static ScoreManager theScoreManager;
 
     public DeathMenu theDeathScreen;
 
 	public bool powerupReset;
+
+    public StatusIndicator thePlayerStatusIndicator;
+
+
 
     // Use this for initialization
     void Start()
@@ -27,6 +31,7 @@ public class GameManager : MonoBehaviour
         playerStartPoint = thePlayer.transform.position;
 
         theScoreManager = FindObjectOfType<ScoreManager>();
+
 
        
     }
@@ -53,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
-
+        
         theDeathScreen.gameObject.SetActive(false);
 
         platformList = FindObjectsOfType<PlatformDestroyer>();
@@ -63,7 +68,17 @@ public class GameManager : MonoBehaviour
             platformList[i].gameObject.SetActive(false);
         }
 
+        if (thePlayer != null){
+
+            thePlayer.enabled = true;
+            Player.PlayerStats.curHealth = Player.PlayerStats.maxHealth;
+
+            thePlayerStatusIndicator.SetHealth(Player.PlayerStats.curHealth, Player.PlayerStats.maxHealth);
+
+        } 
+
         thePlayer.transform.position = playerStartPoint;
+
         platformGenerator.position = platformStartPoint;
         thePlayer.gameObject.SetActive(true);
 
@@ -71,8 +86,21 @@ public class GameManager : MonoBehaviour
         theScoreManager.scoreIncreasing = true;
 
 
-		powerupReset = true;
+        powerupReset = true;
 
+
+
+        
+
+    }
+
+    public void KillPlayer(Player player){
+
+        //Destroy(player.gameObject);
+
+        player.enabled = false;
+
+    
     }
 
     /* public IEnumerator RestartGameCo(){

@@ -24,14 +24,22 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (thePlayer != null){
 
-        // restamos la posicion actual con la anterior 
-        distanceToMove = thePlayer.transform.position.x - lastPlayerPosition.x;
+            // restamos la posicion actual con la anterior 
+            distanceToMove = thePlayer.transform.position.x - lastPlayerPosition.x;
 
-        // creamos un nuevo vector adicionandole la distancia para moverse 
-        transform.position = new Vector3(transform.position.x + distanceToMove, transform.position.y, transform.position.z);
+            // creamos un nuevo vector adicionandole la distancia para moverse 
+            transform.position = new Vector3(transform.position.x + distanceToMove, transform.position.y, transform.position.z);
 
-        // actualizamos la ultima posicion con la actual 
-        lastPlayerPosition = thePlayer.transform.position;
+            // actualizamos la ultima posicion con la actual 
+            lastPlayerPosition = thePlayer.transform.position;
+
+        } else {
+            
+            return;
+        }
+
     }
+
 }

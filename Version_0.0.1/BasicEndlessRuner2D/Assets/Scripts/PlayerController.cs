@@ -18,25 +18,30 @@ public class PlayerController : MonoBehaviour
                                         //private Collider2D myCollider2D;  // creamos una variable tipo Collider2D, componente que se encuentra en el inspector 
 
     public float jumpTime;
-    private float jumpTimeCounter;
+    private static float jumpTimeCounter;
 
-    private bool stopedJumping;
-    private bool canDoubleJump;
+    private static bool stopedJumping;
+    private static bool canDoubleJump;
 
     public float speedMultiplier;
     public float speedIncreaseMilestone;
-    private float speedIncreaseMilestoneStore;
+    private static float speedIncreaseMilestoneStore;
 
-    private float speedMilestoneCount; // es el contador que mantiene pendiente del incremento de velocidad
+    private static float speedMilestoneCount; // es el contador que mantiene pendiente del incremento de velocidad
 
-    private float speedMilestoneCountStore;
+    private static float speedMilestoneCountStore;
 
     public GameManager theGameManager;
 
     public AudioSource jumpSound;
     public AudioSource deathSound;
 
-    private Animator myAnimator;  // creamos una variable tipo Animator, componente que se encuentra en el inspector 
+    public Player player;
+
+    private Animator myAnimator;  // creamos una variable tipo Animator, componente que se encuentra en el inspector
+        
+   
+
 
     // Use this for initialization
     void Start()
@@ -61,7 +66,8 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        
 
         //grounded = Physics2D.IsTouchingLayers (myCollider2D, whatIsGround); // la variable va a ser verdadera si el objeto esta colisionando (myCollider)
         // con alguna capa seleccionada en la mascara de capas 
@@ -138,18 +144,11 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        myAnimator.SetFloat("Speed", myRigidbody2D.velocity.x);
-        myAnimator.SetBool("Grounded", grounded);
 
-    }
 
-    void OnCollisionEnter2D(Collision2D other)
+        if (transform.position.y <= -5.44){
 
-    {
-
-        if (other.gameObject.tag == "Killbox")
-        {
-
+            player.DamagePlayer(9999);
 
             theGameManager.RestartGame();
             moveSpeed = moveSpeedStore;
@@ -160,5 +159,57 @@ public class PlayerController : MonoBehaviour
             //deathSound.Play ();
         }
 
+
+        if(Player.PlayerStats.curHealth <= 0){
+
+            //player.DamagePlayer(9999);
+
+            theGameManager.RestartGame();
+            moveSpeed = moveSpeedStore;
+            speedMilestoneCount = speedMilestoneCountStore;
+            speedIncreaseMilestone = speedIncreaseMilestoneStore;
+            stopedJumping = true;
+            //sonido al morir
+            //deathSound.Play ();
+        }
+
+
+        myAnimator.SetFloat("Speed", myRigidbody2D.velocity.x);
+        myAnimator.SetBool("Grounded", grounded);
+
     }
+
+    public void ResetPlayerControllers()
+    {
+
+        theGameManager.RestartGame();
+        moveSpeed = moveSpeedStore;
+        speedMilestoneCount = speedMilestoneCountStore;
+        speedIncreaseMilestone = speedIncreaseMilestoneStore;
+        stopedJumping = true;
+        //sonido al morir
+        //deathSound.Play ();
+
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+
+        if (other.gameObject.tag == "Killbox")
+        {
+            
+            theGameManager.RestartGame();
+            moveSpeed = moveSpeedStore;
+            speedMilestoneCount = speedMilestoneCountStore;
+            speedIncreaseMilestone = speedIncreaseMilestoneStore;
+            stopedJumping = true;
+            //sonido al morir
+            //deathSound.Play ();
+        }
+
+    }
+
+   
+
+
 }
